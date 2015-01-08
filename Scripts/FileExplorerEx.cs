@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using FileExplorer.UI;
 
@@ -9,6 +11,7 @@ namespace FileExplorer.Ex {
 		private static GameObject _uiPrefab;
 		private static GameObject _uiGo;
 		private static GameObject _canvasGo;
+		private static GameObject _eventSystemGo;
 
 
 		public static void Open (UIController uiController) {
@@ -20,10 +23,28 @@ namespace FileExplorer.Ex {
 
 				if (canvas == null) {
 					_canvasGo = new GameObject("Canvas");
-					_canvasGo.AddComponent<Canvas>();
+					canvas = _canvasGo.AddComponent<Canvas>();
+					_canvasGo.AddComponent<CanvasScaler>();
+					_canvasGo.AddComponent<GraphicRaycaster>();
+
+					canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 				}
 				else {
 					_canvasGo = canvas.gameObject;
+				}
+			}
+
+			if (_eventSystemGo == null) {
+				EventSystem eventSystem = GameObject.FindObjectOfType<EventSystem>();
+
+				if (eventSystem == null) {
+					_eventSystemGo = new GameObject("EventSystem");
+					eventSystem = _eventSystemGo.AddComponent<EventSystem>();
+					_eventSystemGo.AddComponent<StandaloneInputModule>();
+					_eventSystemGo.AddComponent<TouchInputModule>();
+				}
+				else {
+					_eventSystemGo = eventSystem.gameObject;
 				}
 			}
 

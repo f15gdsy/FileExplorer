@@ -1,16 +1,17 @@
 # FileExplorer v0.5
-============
 
-### What is it?
+
+## What is it?
 FileExplorer is a customizable file explorer built for Unity3d.
 
-# Features
+#### Features
 1. Provides file exploration window in different styles (only [OS X list style] (https://dl.dropboxusercontent.com/u/27907965/images/Screen%20Shot%202015-01-08%20at%20%E4%B8%8B%E5%8D%883.18.56.png) currently, more styles are planning to come).
 2. Customizable for UI interaction.
 
 
-### How to use?
-# 1. Open a list style File Explorer window:
+
+## How to use?
+#### 1. Open a list style File Explorer window:
 
 ```csharp
 using FileExplorer.Ex;
@@ -21,7 +22,10 @@ public void OpenFileExplorer () {
 }
 ```
 
-# 2. Customize UI interaction
+
+#### 2. Customize UI interaction
+
+Create a class inherits from WindowController.
 
 ```csharp
 // WindowController.cs

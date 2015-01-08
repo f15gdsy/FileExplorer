@@ -6,13 +6,14 @@ using FileExplorer.Ex;
 
 namespace FileExplorer.UI {
 
-	public class UIBase : MonoBehaviour {
+	// WindowBase is the base class for window.
+	public class WindowBase : MonoBehaviour {
 
 		// ----- UI elements that are required -----
 		public Button cancelButton;
 		public Button otherButton;
 
-		protected UIController _controller;
+		protected WindowController _controller;
 
 		protected string _activeFilePath;
 
@@ -24,9 +25,9 @@ namespace FileExplorer.UI {
 			_controller.OnStart();
 		}
 
-		public void RegisterUIController (UIController uiController) {
-			_controller = uiController;
-			_controller.ui = this;
+		public void RegisterWindowController (WindowController controller) {
+			_controller = controller;
+			_controller.window = this;
 
 			_controller.RegisterCancelButton(cancelButton);
 			_controller.RegisterOtherButton(otherButton);

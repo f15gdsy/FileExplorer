@@ -5,9 +5,11 @@ using FileExplorer.UI;
 
 namespace FileExplorer.Ex {
 
-	public class UIController {
+	// WindowController is the base class for customized controller.
+	// It is used to respond to window UI interactions.
+	public class WindowController {
 
-		public UIBase ui {get;set;}
+		public WindowBase window {get;set;}
 
 
 		public void RegisterCancelButton (Button cancelButton) {
@@ -22,16 +24,13 @@ namespace FileExplorer.Ex {
 			});
 		}
 
-
+		// Override these functions to customize.
 		public virtual void OnStart () {}
-
+		public virtual void OnFileHighlighted (string path) {}
 		protected virtual void OnCancelButtonPressed (Button cancelButton) {
 			FileExplorerEx.Close();
 		}
-
 		protected virtual void OnOtherButtonPressed (Button otherButton) {}
-
-		public virtual void OnFileHighlighted (string path) {}
 	}
 
 }

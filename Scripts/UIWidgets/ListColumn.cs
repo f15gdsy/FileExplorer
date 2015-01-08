@@ -58,7 +58,7 @@ namespace FileExplorer.UI {
 
 		public ListColumn parent {get; set;}
 
-		public ListUI ui {get; set;}
+		public ListWindow window {get; set;}
 
 		public RectTransform rectTrans {get {return _rectTrans;}}
 
@@ -72,7 +72,7 @@ namespace FileExplorer.UI {
 		}
 
 		public void ToggleActive () {
-			ui.highlightColumn = this;
+			window.highlightColumn = this;
 
 			if (_active) {
 				OnInactive();
@@ -84,13 +84,10 @@ namespace FileExplorer.UI {
 			_active = !_active;
 		}
 
-		protected virtual void OnActive () {
-
-		}
-
-		protected virtual void OnInactive () {
-
-		}
+		// --- Not used ---
+		protected virtual void OnActive () {}
+		protected virtual void OnInactive () {}
+		// 
 
 		public override string ToString () {
 			return string.Format ("[ListColumn: path={0}, height={1}, indentLevel={2}]", path, localPositionY, indentLevel);

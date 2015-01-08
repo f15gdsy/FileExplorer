@@ -80,7 +80,7 @@ GameObject:
   - 224: {fileID: 22493600}
   - 114: {fileID: 11493612}
   m_Layer: 5
-  m_Name: File Explorer List UI
+  m_Name: File Explorer List Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

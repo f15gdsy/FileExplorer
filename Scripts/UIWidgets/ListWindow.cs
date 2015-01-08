@@ -6,7 +6,8 @@ using System.IO;
 
 namespace FileExplorer.UI {
 
-	public class ListUI : UIBase {
+	// List style window.
+	public class ListWindow : WindowBase {
 
 		public ListColumn fileColumnPrefab;
 		public ListColumn directoryColumnPrefab;
@@ -24,12 +25,10 @@ namespace FileExplorer.UI {
 		private ListColumn _highlightColumn;
 
 
-
-
 		public ListColumn highlightColumn {
 			get {return _highlightColumn;}
 			set {
-				if (_highlightColumn != null) {
+				if (_highlightColumn != null) {	// Reset previous highlighted column to correct color
 					int previousActiveColumnIndex = _columns.IndexOf(_highlightColumn);
 					_highlightColumn.color = ChooseColumnColor(previousActiveColumnIndex);
 				}
@@ -104,7 +103,7 @@ namespace FileExplorer.UI {
 				column.path = fileOrDirectory.FullName;
 				column.parent = parent;
 				column.indentLevel = indentLevel;
-				column.ui = this;
+				column.window = this;
 				
 				column.transform.SetParent(contentTrans);
 				column.transform.localPosition = new Vector3 (0, currentY, 0);
@@ -124,6 +123,7 @@ namespace FileExplorer.UI {
 			contentTrans.sizeDelta = new Vector2(contentTrans.sizeDelta.x, Mathf.Abs(currentY));
 		}
 
+		// Delete parent column's children columns.
 		public void DeleteColumns (ListColumn parent) {
 			if (!_columnsToChildren.ContainsKey(parent)) return;
 

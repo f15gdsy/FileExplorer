@@ -26,14 +26,14 @@ namespace FileExplorer.UI {
 		}
 
 		protected override void OnActive () {
-			ui.CreateColumns(this);
+			window.CreateColumns(this);
 			PlayIndicatorAnimationOpen();
 
-			ui.highlightColumn = null;
+			window.highlightColumn = null;
 		}
 
 		protected override void OnInactive () {
-			ui.DeleteColumns(this);
+			window.DeleteColumns(this);
 			PlayIndicatorAnimationClose();
 		}
 

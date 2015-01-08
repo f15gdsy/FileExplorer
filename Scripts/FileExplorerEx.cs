@@ -9,28 +9,32 @@ namespace FileExplorer.Ex {
 	// FileExplorerEx provides interfaces for other applications to use.
 	public class FileExplorerEx {
 
-		private static GameObject _uiPrefab;
-		private static GameObject _uiGo;
+		private static GameObject _windowPrefab;
+		private static GameObject _windowGo;
 		private static GameObject _canvasGo;
 		private static GameObject _eventSystemGo;
 
 
-		public static void Open (UIController uiController, FileExplorerUIStyle style = FileExplorerUIStyle.Default) {
-			if (_uiPrefab == null) {
+		// Used to open a File Explorer window.
+		// 	controller: a customized controller to responds to window UI interaction.
+		//	style: wanted window style.
+		public static void Open (WindowController controller, WindowStyle style = WindowStyle.Default) {
+			if (_windowPrefab == null) {
 				string prefabPath;
 
 				switch (style) {
-				case FileExplorerUIStyle.List:
-					prefabPath = "Prefabs/File Explorer List UI";
+				case WindowStyle.List:
+					prefabPath = "Prefabs/File Explorer List Window";
 					break;
 
 				default:
-					prefabPath = "Prefabs/File Explorer List UI";
+					prefabPath = "Prefabs/File Explorer List Window";
 					break;
 				}
 
-				_uiPrefab = Resources.Load(prefabPath) as GameObject;
+				_windowPrefab = Resources.Load(prefabPath) as GameObject;
 			}
+
 			if (_canvasGo == null) {
 				Canvas canvas = GameObject.FindObjectOfType<Canvas>();
 
@@ -61,21 +65,22 @@ namespace FileExplorer.Ex {
 				}
 			}
 
-			_uiGo = GameObject.Instantiate(_uiPrefab) as GameObject;
-			_uiGo.transform.SetParent(_canvasGo.transform);
-			_uiGo.transform.localPosition = Vector3.zero;
+			_windowGo = GameObject.Instantiate(_windowPrefab) as GameObject;
+			_windowGo.transform.SetParent(_canvasGo.transform);
+			_windowGo.transform.localPosition = Vector3.zero;		// TODO: leave an interface for positioning the window?
 
-			UIBase ui = _uiGo.GetComponent<UIBase>();
-			ui.RegisterUIController(uiController);
+			WindowBase window = _windowGo.GetComponent<WindowBase>();
+			window.RegisterWindowController(controller);
 		}
 
+		// Close the window.
 		public static void Close () {
-			GameObject.Destroy(_uiGo);
+			GameObject.Destroy(_windowGo);
 		}
 	}
 
 
-	public enum FileExplorerUIStyle {
+	public enum WindowStyle {
 		Default = 0,
 		List = 1,
 	}

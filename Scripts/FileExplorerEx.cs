@@ -6,6 +6,7 @@ using FileExplorer.UI;
 
 namespace FileExplorer.Ex {
 
+	// FileExplorerEx provides interfaces for other applications to use.
 	public class FileExplorerEx {
 
 		private static GameObject _uiPrefab;
@@ -14,9 +15,21 @@ namespace FileExplorer.Ex {
 		private static GameObject _eventSystemGo;
 
 
-		public static void Open (UIController uiController) {
+		public static void Open (UIController uiController, FileExplorerUIStyle style = FileExplorerUIStyle.Default) {
 			if (_uiPrefab == null) {
-				_uiPrefab = Resources.Load("Prefabs/File Explorer List UI") as GameObject;
+				string prefabPath;
+
+				switch (style) {
+				case FileExplorerUIStyle.List:
+					prefabPath = "Prefabs/File Explorer List UI";
+					break;
+
+				default:
+					prefabPath = "Prefabs/File Explorer List UI";
+					break;
+				}
+
+				_uiPrefab = Resources.Load(prefabPath) as GameObject;
 			}
 			if (_canvasGo == null) {
 				Canvas canvas = GameObject.FindObjectOfType<Canvas>();
@@ -61,4 +74,9 @@ namespace FileExplorer.Ex {
 		}
 	}
 
+
+	public enum FileExplorerUIStyle {
+		Default = 0,
+		List = 1,
+	}
 }

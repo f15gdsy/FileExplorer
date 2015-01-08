@@ -10,6 +10,7 @@ FileExplorer is a customizable file explorer built for Unity3d.
 
 
 
+
 ## How to use?
 #### 1. Open a list style File Explorer window:
 

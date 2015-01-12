@@ -19,7 +19,9 @@ namespace FileExplorer {
 			case RuntimePlatform.WindowsPlayer:
 			case RuntimePlatform.WindowsEditor:
 			case RuntimePlatform.WindowsWebPlayer:
-				rootFolder = System.Environment.SpecialFolder.MyComputer;
+				// This results the function returns empty string, 
+				// as MyComputer is not a physical concept.
+				rootFolder = System.Environment.SpecialFolder.MyComputer;	
 				break;
 
 			case RuntimePlatform.LinuxPlayer:
@@ -35,21 +37,34 @@ namespace FileExplorer {
 		}
 
 		public static List<FileSystemInfo> GetFilesInDirectory (string directoryPath, bool includeHidden = false) {
-			DirectoryInfo directory = new DirectoryInfo(directoryPath);
-
-			FileSystemInfo[] array = directory.GetFileSystemInfos();
 			List<FileSystemInfo> filesAndDirectories = new List<FileSystemInfo>();
 
-			if (!includeHidden) {
-				foreach (FileSystemInfo fileOrDirectory in array) {
-					if ((fileOrDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden) {
-						filesAndDirectories.Add(fileOrDirectory);
+			// IMPORTANT: A null or empty string path results in the root directories of all logical drives be returned.
+			if (directoryPath == null || directoryPath.Equals("")) {
+				string[] drives = Directory.GetLogicalDrives ();
+				foreach (string drive in drives) {
+					DirectoryInfo info = new DirectoryInfo (drive);
+					if ((info.Attributes & FileAttributes.Directory) == FileAttributes.Directory) {
+						filesAndDirectories.Add (info);
+					}
+				}
+			} 
+			else {
+				DirectoryInfo directory = new DirectoryInfo (directoryPath);
+				
+				FileSystemInfo[] array = directory.GetFileSystemInfos ();
+				
+				if (!includeHidden) {
+					foreach (FileSystemInfo fileOrDirectory in array) {
+						if ((fileOrDirectory.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden) {
+							filesAndDirectories.Add (fileOrDirectory);
+						}
 					}
 				}
 			}
-
+			
 			return filesAndDirectories;
 		}
 	}
-
+	
 }

@@ -1,4 +1,4 @@
-# FileExplorer v0.5
+# FileExplorer v0.5.1
 <br>
 
 ## What is it?

@@ -13,12 +13,16 @@ namespace FileExplorer.Ex {
 
 
 		public void RegisterCancelButton (Button cancelButton) {
+			if (cancelButton == null) return ;
+
 			cancelButton.onClick.AddListener(delegate {
 				OnCancelButtonPressed(cancelButton);
 			});
 		}
 
 		public void RegisterOtherButton (Button otherButton) {
+			if (otherButton == null) return ;
+
 			otherButton.onClick.AddListener(delegate {
 				OnOtherButtonPressed(otherButton);
 			});
